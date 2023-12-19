@@ -1,0 +1,31 @@
+<table id="users">
+    <thead>
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Telephone</th>
+        <th>Date</th>
+        <th></th>
+        <th></th>
+    </tr>
+    </thead>
+    <% users.forEach(user => { %>
+        <% const months = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]; %>
+        <% const dateObject = new Date(user.date); %>
+        <% const date = dateObject.getDate(); %>
+        <% const month = months[dateObject.getMonth()]; %>
+        <% const year = dateObject.getFullYear(); %>
+        <tr>
+            <td><%= user.first_name %></td>
+            <td><%= user.last_name %></td>
+            <td><%= user.telephone %></td>
+            <td><%= `${month} ${date}, ${year}`%></td>
+            <td>
+                <button hx-get="/update_form/<%= user.id %>" hx-target="#form" hx-swap="outerHTML">Update</button>
+            </td>
+            <td>
+                <button hx-delete="/delete/<%= user.id %>" hx-target="#users" hx-swap="outerHTML">Delete</button>
+            </td>
+        </tr>
+    <% }) %>
+</table>
